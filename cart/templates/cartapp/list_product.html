@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+
+{%block title%} Product List  {%endblock%}
+{%block pagename%} Product List  {%endblock%}
+{%block content%}
+<div class="container">
+{% for item in list_items %}
+   <table class="table table-striped">
+    <tbody>
+    <tr>
+        <td>
+        <div class="media" style="padding-top:10">
+                    <a class="pull-left" href="#">
+                <img class="media-object" src="{{item.image_url}}" alt="">
+            </a>
+        </div>
+        </td>
+        <td>
+        <div class="media-body">
+            <h4 class="media-heading">{{item.title}}</h4>
+            {{item.description}}
+        </div>
+        </td>
+        <td>
+        <div class="span2" style="align:right">
+            <p><a class="btn btn-primary " href="{% url 'view' item.id %}">Show</a> </p>
+            <p><a class="btn btn-success " href="{% url 'edit' item.id %}">Edit</a> </p>
+            <p> <a class="btn btn-danger " href="#">Delete </a></p>
+        </div>
+        </td>
+    </tr>
+    </table>
+    </div>
+{%endfor%}
+
+{% if list_items.has_previous%}
+  <a href="?page={{list_items.previous_page_number}}"> Previous</a>
+{% endif %}
+<span class="current">
+    Page {{list_items.number}} of {{list_items.paginator.num_pages}}.
+</span>
+
+{%if list_items.has_next%}
+  <a href="?page={{list_items.next_page_number}}"> Next</a>
+{%endif%}
+<div class="span2 pull-right" >
+<p> <a href="{%url 'create' %"}> Add New </a> </p>
+</div>
+{%endblock%}

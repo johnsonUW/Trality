@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %} Product List {% endblock %}
+{% block pagename %} Add to Cart {% endblock %}
+
+{% block content %} 
+{% for item in products %}
+<div class="row" style="padding-top:10">
+	<div class="span3 media-grid">
+		<a href="#">
+	    <img class="thumbnail" src="{{item.image_url}}" alt="">
+	    </a>
+	</div>
+	<div class="span6">
+		<h3>{{item.title}}</h3>
+		<br/>
+		{{item.description}}
+		<br/>
+		<br/>
+		<br/>
+		<div class="row">
+			<div class="span2"><h3>￥{{item.price|floatformat:"2"}}</h3></div>
+            <div class="span"><a class="btn primary" productid="{{item.id}}" href="#">add</a></div>
+		</div>
+	</div>
+
+</div>
+<div class="page-header">
+</div>
+{% endfor %}
+
+<div class="span4">
+        <h5>My Cart</h5><br/>
+            <table class="condensed-table">
+                    <tbody>
+                        {% for item in cart.items %}
+                        <tr>
+                                <th>{{item.quantity}}x</th>
+                              <td>{{item.product.title}}</td>
+                              <td>￥{% widthratio item.quantity 1 item.unit_price %} </td>
+                	            </tr>
+                        {% endfor %}
+            	            <tr>
+                	              <td></td>
+                	              <th>Total：</th>
+                              <th>￥{{cart.total_price|floatformat:"2"}}</th>
+                	            </tr>
+            	          </tbody>
+        	        </table>
+            
+    	        <a class="btn danger" href="{% url 'clean' %}">clean</a>
+    	        <a class="btn success" href="#">check out</a>
+    	    </div><!--span4-->
+
+
+{% endblock %}
+
+//store.html on ready
+<script>
+  $('a.btn[productid]').bind('click', function(){
+       alert($(this).attr("productid"));
+}
+);
+</script>

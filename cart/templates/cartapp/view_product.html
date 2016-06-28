@@ -1,0 +1,13 @@
+{%extends 'base.html'%}
+
+{%block title%} Product - View {%endblock%}
+
+{%block heading%} <h1> Product</h1><h2> View </h2> {%endblock%}
+
+{%block content%}
+<table>
+{{product_instance.title}}
+{{product_instance.description}}
+{{product_instance.price}}
+</table>
+{%endblock%}
